@@ -1,0 +1,8 @@
+[package]
+name = "raws"
+version = "0.1.0"
+authors = ["Colin MacRae <cmac4603@users.noreply.github.com>"]
+
+[dependencies]
+rusoto_core = "0.28.0"
+rusoto_ec2 = "0.28.0"
