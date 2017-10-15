@@ -18,7 +18,24 @@ fn main() {
             match output.reservations {
                 Some(reservations_list) => {
                     for reservations in reservations_list {
-                        println!("{:?}", reservations.instances.unwrap());
+                        // println!("{:?}", reservations.instances.iter());
+                        for instance in reservations.instances.iter() {
+                            let ec2_details = instance.get(0).unwrap();
+                            let ec2_tags = ec2_details.tags.clone().unwrap();
+                            for tags in ec2_tags{
+                                match tags.key {
+                                    Some(_) => {
+                                        println!("{:?}", tags.value.unwrap())
+                                    }
+                                    _ => (),
+                                }
+                            }
+                            println!("{}",
+                                     ec2_details
+                                         .public_ip_address
+                                         .clone()
+                                         .unwrap_or(String::from("No public IP")));
+                        }
                     }
                 }
                 None => println!("No instances found!"),
