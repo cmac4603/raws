@@ -22,19 +22,21 @@ fn main() {
                         for instance in reservations.instances.iter() {
                             let ec2_details = instance.get(0).unwrap();
                             let ec2_tags = ec2_details.tags.clone().unwrap();
-                            for tags in ec2_tags{
+                            for tags in ec2_tags {
                                 match tags.key {
-                                    Some(_) => {
-                                        println!("{:?}", tags.value.unwrap())
+                                    Some(tag_key) => {
+                                        if tag_key == "Name" {
+                                            println!("{}: {}",
+                                                     tags.value.unwrap(),
+                                                     ec2_details
+                                                         .public_ip_address
+                                                         .clone()
+                                                         .unwrap_or(String::from("No public IP",),))
+                                        }
                                     }
                                     _ => (),
                                 }
                             }
-                            println!("{}",
-                                     ec2_details
-                                         .public_ip_address
-                                         .clone()
-                                         .unwrap_or(String::from("No public IP")));
                         }
                     }
                 }
