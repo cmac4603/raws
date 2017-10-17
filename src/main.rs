@@ -27,12 +27,16 @@ fn main() {
                                 match tags.key {
                                     Some(tag_key) => {
                                         if tag_key == "Name" {
-                                            println!("{}: {}",
+                                            println!("{}: has public IP {} and private IP {}",
                                                      tags.value.unwrap_or(String::from("No name")),
                                                      ec2_details
                                                          .public_ip_address
                                                          .clone()
-                                                         .unwrap_or(String::from("No public IP",),))
+                                                         .unwrap_or(String::from("NONE",),),
+                                                     ec2_details
+                                                         .private_ip_address
+                                                         .clone()
+                                                         .unwrap_or(String::from("NONE",),))
                                         }
                                     }
                                     _ => (),
