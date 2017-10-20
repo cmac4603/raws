@@ -27,19 +27,25 @@ fn main() {
                                 match tags.key {
                                     Some(tag_key) => {
                                         if tag_key == "Name" {
-                                            let status = ec2_details.state.clone().unwrap();
-                                            let status_result = status.name.unwrap();
+                                            let instance_name =
+                                                tags.value.unwrap_or(String::from("No name"));
+                                            let public_ip_address =
+                                                ec2_details
+                                                    .public_ip_address
+                                                    .clone()
+                                                    .unwrap_or(String::from("NONE"));
+                                            let private_ip_address =
+                                                ec2_details
+                                                    .private_ip_address
+                                                    .clone()
+                                                    .unwrap_or(String::from("NONE"));
+                                            let status =
+                                                ec2_details.state.clone().unwrap().name.unwrap();
                                             println!("{} has public IP {} and private IP {} - {}",
-                                                     tags.value.unwrap_or(String::from("No name")),
-                                                     ec2_details
-                                                         .public_ip_address
-                                                         .clone()
-                                                         .unwrap_or(String::from("NONE",),),
-                                                     ec2_details
-                                                         .private_ip_address
-                                                         .clone()
-                                                         .unwrap_or(String::from("NONE",),),
-                                                     status_result,)
+                                                     instance_name,
+                                                     public_ip_address,
+                                                     private_ip_address,
+                                                     status,)
                                         }
                                     }
                                     _ => (),
