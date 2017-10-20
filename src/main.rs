@@ -21,25 +21,25 @@ fn main() {
                     for reservations in reservations_list {
                         // println!("{:?}", reservations.instances.iter());
                         for instance in reservations.instances.iter() {
-                            let ec2_details = instance.get(0).unwrap();
-                            let ec2_tags = ec2_details.tags.clone().unwrap();
+                            let ec2_details: &rusoto_ec2::Instance = instance.get(0).unwrap();
+                            let ec2_tags: Vec<rusoto_ec2::Tag> = ec2_details.tags.clone().unwrap();
                             for tags in ec2_tags {
                                 match tags.key {
                                     Some(tag_key) => {
                                         if tag_key == "Name" {
-                                            let instance_name =
+                                            let instance_name: String =
                                                 tags.value.unwrap_or(String::from("No name"));
-                                            let public_ip_address =
+                                            let public_ip_address: String =
                                                 ec2_details
                                                     .public_ip_address
                                                     .clone()
                                                     .unwrap_or(String::from("NONE"));
-                                            let private_ip_address =
+                                            let private_ip_address: String =
                                                 ec2_details
                                                     .private_ip_address
                                                     .clone()
                                                     .unwrap_or(String::from("NONE"));
-                                            let status =
+                                            let status: String =
                                                 ec2_details.state.clone().unwrap().name.unwrap();
                                             println!("{} has public IP {} and private IP {} - {}",
                                                      instance_name,

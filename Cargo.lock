@@ -1,6 +1,6 @@
 [root]
 name = "raws"
-version = "0.2.3"
+version = "0.2.4"
 dependencies = [
  "rusoto_core 0.28.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "rusoto_ec2 0.28.0 (registry+https://github.com/rust-lang/crates.io-index)",
