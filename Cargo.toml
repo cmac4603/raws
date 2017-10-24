@@ -1,6 +1,6 @@
 [package]
 name = "raws"
-version = "0.2.4"
+version = "0.2.5"
 authors = ["Colin MacRae <cmac4603@users.noreply.github.com>"]
 
 [dependencies]
