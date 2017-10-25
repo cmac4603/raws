@@ -8,24 +8,28 @@ use rusoto_ec2::{Ec2, Ec2Client, DescribeInstancesRequest};
 
 fn region_selector(acc: &str) -> Region {
     match acc {
-        "uk-prod" => {
+        "eu-west-1" => {
             let region: Region = Region::EuWest1;
             region
         },
-        "uk-stage" => {
-            let region: Region = Region::EuWest1;
+        "eu-west-2" => {
+            let region: Region = Region::EuWest2;
             region
         },
-        "uk-dev" => {
-            let region: Region = Region::EuWest1;
+        "us-east-1" => {
+            let region: Region = Region::UsEast1;
             region
         },
-        "hmi-it" => {
-            let region: Region = Region::EuWest1;
+        "us-east-2" => {
+            let region: Region = Region::UsEast2;
             region
         },
-        "hmi-es" => {
-            let region: Region = Region::EuWest1;
+        "us-west-1" => {
+            let region: Region = Region::UsWest1;
+            region
+        },
+        "us-west-2" => {
+            let region: Region = Region::UsWest2;
             region
         },
         _ => {
@@ -38,8 +42,9 @@ fn region_selector(acc: &str) -> Region {
 fn main() {
     let args: Vec<String> = env::args().collect();
     // println!("{:?}", args);
-    let account = args[1].as_ref();
-    let region: Region = region_selector(account);
+    let account: &str = args[1].as_ref();
+    let region_name: &str = args[2].as_ref();
+    let region: Region = region_selector(region_name);
     let provider: ProfileProvider = ProfileProvider::with_configuration("/Users/cmacrae/.aws/credentials", account);
     let client = Ec2Client::new(default_tls_client().unwrap(), provider, region);
     let list_ec2_input: DescribeInstancesRequest = Default::default();
