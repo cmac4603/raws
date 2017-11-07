@@ -45,7 +45,8 @@ fn main() {
     let account: &str = args[1].as_ref();
     let region_name: &str = args[2].as_ref();
     let region: Region = region_selector(region_name);
-    let provider: ProfileProvider = ProfileProvider::with_configuration("/Users/cmacrae/.aws/credentials", account);
+    let aws_creds_dir: String = env::home_dir().unwrap().to_str().unwrap().to_owned() + "/.aws/credentials";
+    let provider: ProfileProvider = ProfileProvider::with_configuration(aws_creds_dir, account);
     let client = Ec2Client::new(default_tls_client().unwrap(), provider, region);
     let list_ec2_input: DescribeInstancesRequest = Default::default();
 
